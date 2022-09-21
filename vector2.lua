@@ -196,23 +196,24 @@ function Vector2:rotate(angle, rad)
 end
 
 
----Gets a vector reflected of a given normal vector inplace.
----Note that we won't check whether n is normalized.
+---Gets a vector reflected of a given vector inplace.
 ---@param n Vector2
+---@param silent? boolean the same as the parameter Vector2:normalize() takes.
 ---@return Vector2 itself.
-function Vector2:reflectIp(n)
+function Vector2:reflectIp(n, silent)
     ---R = I - 2*dot(I,N)N
+    n = n:normalize(silent)
     local a = n:scale(-2*self:dot(n))
     return self:incV(a)
 end
 
 
----Gets a vector reflected of a given normal vector.
----Note that we won't check whether n is normalized.
+---Gets a vector reflected of a given vector.
 ---@param n Vector2
+---@param silent? boolean the same as the parameter Vector2:normalize() takes.
 ---@return Vector2
-function Vector2:reflect(n)
-    return self:clone():reflectIp(n)
+function Vector2:reflect(n, silent)
+    return self:clone():reflectIp(n, silent)
 end
 
 
@@ -220,6 +221,13 @@ end
 ---@return boolean
 function Vector2:isZero()
     return feq(self.x, 0) and feq(self.y, 0)
+end
+
+
+---Returns whether the vector is normal.
+function Vector2:isNormal()
+    -- As we only care about if it is 1, using squared length is suitable.
+    return feq(self:len2(), 1)
 end
 
 
