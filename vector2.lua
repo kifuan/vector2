@@ -91,12 +91,16 @@ end
 
 ---Gets normalized vector.
 ---@param inplace? boolean whether this operation is inplace, default by true.
----@param err? boolean whether this function could throw an error.
+---@param silent? boolean whether this function should be silent when it is zero-vector, default by true.
 ---@return Vector2
-function Vector2:normalize(inplace, err)
+function Vector2:normalize(inplace, silent)
+    if silent == nil then
+        silent = true
+    end
+
     local len = self:len()
     if len == 0 then
-        if err then
+        if not silent then
             error('Cannot normalize zero-vector.')
         end
         return self
