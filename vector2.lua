@@ -184,6 +184,17 @@ function Vector2:rotate(angle, rad)
 end
 
 
+---Gets a vector reflected of a given normal vector.
+---Note that we won't check whether n is normalized.
+---@param n Vector2 normalized vector.
+---@return Vector2
+function Vector2:reflect(n)
+    ---It seems that the type-checking tool doesn't work well.
+    ---@diagnostic disable-next-line: return-type-mismatch
+    return self - n:scale(2*self:dot(n))
+end
+
+
 ---Clones the vector.
 ---@return Vector2
 function Vector2:clone()
