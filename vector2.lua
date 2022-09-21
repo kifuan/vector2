@@ -1,4 +1,6 @@
 --[[
+https://github.com/kifuan/vector2
+
 MIT License
 
 Copyright (c) 2022 Kifuan
