@@ -208,10 +208,15 @@ function Vector2:__tostring()
 end
 
 
+local allowedDeviation = 1e-4
+
+
 ---Compares the vector with another one.
 ---@return boolean
 function Vector2:__eq(v)
-    return self.x == v.x and self.y == v.y
+    local dx = math.abs(self.x - v.x)
+    local dy = math.abs(self.y - v.y)
+    return dx < allowedDeviation and dy < allowedDeviation
 end
 
 
