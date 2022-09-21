@@ -37,3 +37,12 @@ assert(a:rotate(90) == Vector2.new(-4, 3))
 -- Addition and subtraction.
 assert(a + b == Vector2.new(10, 11))
 assert(a - b == Vector2.new(-4, -3))
+
+
+-- Vector status.
+assert(zero:isZero())
+assert(a:normalize():isNormal())
+
+
+-- Reflection.
+assert(a:reflect(Vector2.new(1,1)) == Vector2.new(-4, -3))
