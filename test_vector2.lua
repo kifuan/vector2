@@ -1,15 +1,17 @@
 local v = require('vector2')
 local Vector2 = v.Vector2
+local feq = v.feq
 
 local a = Vector2.new(3, 4)
 local b = Vector2.new(7, 7)
 local zero = Vector2.new(0, 0)
 
-assert(a:len2() == 25)
-assert(a:len() == 5)
+assert(feq(a:len2(), 25))
+assert(feq(a:len(), 5))
 
-assert(a:dist2(b) == 25)
-assert(a:dist(b) == 5)
+
+assert(feq(a:dist2(b), 25))
+assert(feq(a:dist(b), 5))
 
 local a1 = a:clone()
 
@@ -25,8 +27,8 @@ assert(not ok)
 assert(a:scale(2) == Vector2.new(6, 8))
 
 -- Dot- and cross- product.
-assert(a:dot(b) == 21+28)
-assert(a:cross(b) == 21-28)
+assert(feq(a:dot(b), 21+28))
+assert(feq(a:cross(b), 21-28))
 
 -- Rotate the vector.
 assert(a:rotate(90) == Vector2.new(-4, 3))

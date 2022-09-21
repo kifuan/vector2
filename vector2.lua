@@ -52,6 +52,19 @@ else
 end
 
 
+---Allowed deviation for floats.
+local ALLOWED_DEVIATION = 1e-4
+
+
+---Returns whether the floats are equal.
+---@param a number
+---@param b number
+---@return boolean
+local function feq(a, b)
+    return math.abs(a-b) < ALLOWED_DEVIATION
+end
+
+
 Vector2.__index = Vector2
 Vector2.new = v2
 
@@ -71,7 +84,7 @@ function Vector2:len()
 end
 
 
----Calcuates the squred distance with another vector.
+---Calcuates the squred dista965283nce with another vector.
 ---@param v Vector2
 ---@return number
 function Vector2:dist2(v)
@@ -97,14 +110,13 @@ function Vector2:normalizeInplace(silent)
         silent = true
     end
 
-    local scale = 1 / self:len()
-    if math.huge == scale then
+    if self:isZero() then
         if not silent then
             error('Cannot normalize zero vector.')
         end
         return self
     end
-    return self:scaleInplace(scale)
+    return self:scaleInplace(1/self:len())
 end
 
 
@@ -204,6 +216,13 @@ function Vector2:reflect(n)
 end
 
 
+---Returns whetehr the vector is a zero-vector.
+---@return boolean
+function Vector2:isZero()
+    return feq(self.x, 0) and feq(self.y, 0)
+end
+
+
 ---Increases x.
 ---@param n number
 ---@return Vector2 itself.
@@ -271,18 +290,14 @@ function Vector2:__tostring()
 end
 
 
-local allowedDeviation = 1e-4
-
-
 ---Compares the vector with another one.
 ---@return boolean
 function Vector2:__eq(v)
-    local dx = math.abs(self.x - v.x)
-    local dy = math.abs(self.y - v.y)
-    return dx < allowedDeviation and dy < allowedDeviation
+    return feq(self.x, v.x) and feq(self.y, v.y)
 end
 
 
 return {
-    Vector2 = Vector2
+    Vector2 = Vector2,
+    feq = feq
 }
