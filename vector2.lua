@@ -119,7 +119,7 @@ function Vector2:scale(n, inplace)
     end
 
     if not inplace then
-        self = Vector2.new(0, 0)
+        self = self:clone()
     end
 
     self.x = n * self.x
@@ -143,6 +143,44 @@ end
 ---@return number
 function Vector2:cross(v)
     return self.x * v.y - self.y * v.x
+end
+
+
+---Rotates the vector with specified angle.
+---@param angle number the angle to rotate.
+---@param rad? boolean whether the angle is in radians, default by false.
+---@param inplace? boolean whether the operation is inplace, default by true.
+---@return Vector2
+function Vector2:rotate(angle, rad, inplace)
+    if rad == nil then
+        rad = false
+    end
+
+    if inplace == nil then
+        inplace = true
+    end
+
+    if not rad then
+        angle = angle * math.pi / 180
+    end
+
+    if not inplace then
+        self = self:clone()
+    end
+
+    local cos, sin = math.cos(angle), math.sin(angle)
+
+    self.x = self.x*cos - self.y*sin
+    self.y = self.x*sin + self.y*cos
+
+    return self
+end
+
+
+---Clones the vector.
+---@return Vector2
+function Vector2:clone()
+    return Vector2.new(self.x, self.y)
 end
 
 
