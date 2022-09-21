@@ -128,7 +128,7 @@ function Vector2:normalize(silent)
 end
 
 
----Scales the vector inplace.
+---Scales the vector by number inplace.
 ---@param n number
 ---@return Vector2
 function Vector2:scaleIp(n)
@@ -138,7 +138,7 @@ function Vector2:scaleIp(n)
 end
 
 
----Scales the vector.
+---Scales the vector by number.
 ---@param n number
 ---@return Vector2
 function Vector2:scale(n)
@@ -187,7 +187,7 @@ function Vector2:rotateIp(angle, rad)
 end
 
 
----Rotates the vector with specified angle.
+---Gets a vector rotated with specified angle.
 ---@param angle number the angle to rotate.
 ---@param rad? boolean whether the angle is in radians, default by false.
 ---@return Vector2
