@@ -184,14 +184,60 @@ function Vector2:rotate(angle, rad)
 end
 
 
+---Gets a vector reflected of a given normal vector inplace.
+---Note that we won't check whether n is normalized.
+---@param n Vector2
+---@return Vector2 itself.
+function Vector2:reflectInplace(n)
+    ---R = I - 2*dot(I,N)N
+    local a = n:scale(-2*self:dot(n))
+    return self:incV(a)
+end
+
+
 ---Gets a vector reflected of a given normal vector.
 ---Note that we won't check whether n is normalized.
----@param n Vector2 normalized vector.
+---@param n Vector2
 ---@return Vector2
 function Vector2:reflect(n)
-    ---It seems that the type-checking tool doesn't work well.
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return self - n:scale(2*self:dot(n))
+    return self:clone():reflectInplace(n)
+end
+
+
+---Increases x.
+---@param n number
+---@return Vector2 itself.
+function Vector2:incX(n)
+    self.x = self.x + n
+    return self
+end
+
+
+---Increases y.
+---@param n number
+---@return Vector2 itself.
+function Vector2:incY(n)
+    self.y = self.y + n
+    return self
+end
+
+
+---Incrases with another vector.
+---@param v Vector2
+---@return Vector2 itself.
+function Vector2:incV(v)
+    return self:inc(v.x, v.y)
+end
+
+
+---Increases both x and y.
+---@param x number
+---@param y number
+---@return Vector2 itself.
+function Vector2:inc(x, y)
+    self.x = self.x + x
+    self.y = self.y + y
+    return self
 end
 
 
