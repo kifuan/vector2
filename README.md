@@ -4,10 +4,6 @@
 
 Ａ 2d vector library designed for `LuaJIT`, and it can be used in normal `Lua` as well.
 
-**NOTE: it is still developing. Breaking changes may happen.**
-
-**Please do not use it in production environment for now.**
-
 
 ## Usage
 
@@ -58,3 +54,36 @@ print(v1:dot(v2))
   end
   ```
 
+## APIs
+
+All functions with `Ip` suffix means that they are **inplace functions**, which are not listed here.
+
+**NOTE THAT YOU SHOULD use `feq(a, b)` to compare floats, as it allows tiny deviation(1e-4).**
+
+| Name                                                         | Meaning                                                      |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `feq(a: number, b: number): boolean`                         | Compares two floats with deviation allowed.                  |
+| `Vector2.new(x: number, y: number): Vector2`                 | Creates new vector.                                          |
+| `Vector2:len2(): number`                                     | Gets squared length.                                         |
+| `Vector2:len(): number`                                      | Gets length.                                                 |
+| `Vector2:dist2(v: Vector2): number`                          | Squared distance with another vector.                        |
+| `Vector2:dist(v: Vector2): number`                           | Distance with another vector.                                |
+| `Vector2:normalize(silent: boolean = true): Vector2`         | Gets normalized vector. `silent` means whether it should throw an error when normalizing a zero-vector. |
+| `Vector2:scale(n: number): Vector2`                          | Scales the vector by number.                                 |
+| `Vector2:dot(v: Vector2): number`                            | Calculates the dot- or scalar-product.                       |
+| `Vector2:cross(v: Vector2): number`                          | Calculates the cross- or out-product(in number).             |
+| `Vector2:rotate(angle: number, rad: boolean = false): Vector2` | Gets a vector rotated with specified angle. `rad` means whether the angle is in radians. |
+| `Vector2:reflect(n: Vector2, silent: boolean = true): Vector2` | Gets a vector reflected of the given vector. `silent` is the same as the parameter  `Vector2:normalize` takes. |
+| `Vector2:isZero(): boolean`                                  | Returns whether the vector is a zero-vector.                 |
+| `Vector2:isNormal(): boolean`                                | Returns whether the vector is normal.                        |
+| `Vector2:clone(): Vector2`                                   | Clones the vector.                                           |
+| `Vector2:incX(n: number): Vector2`                           | Increases x by n.                                            |
+| `Vector2:incY(n: number): Vector2`                           | Increases y by n.                                            |
+| `Vector2:inc(x: number, y: number): Vector2`                 | Increases both x and y.                                      |
+| `Vector2:incV(v: Vector2): Vector2`                          | Increases by given vector.                                   |
+| `Vector2:__sub(v: Vector2): Vector2`                         | v1 - v2                                                      |
+| `Vector2:__unm(): Vector2`                                   | -v1                                                          |
+| `Vector2:__eq(v: Vector2): boolean`                          | v1 == v2                                                     |
+| `Vector2:__tostring(): string`                               | tostring(v1)                                                 |
+
+Tips: You can use `len2`, `dist2` when you just care about whether the value is `0` or `1`.
