@@ -169,9 +169,10 @@ function Vector2:rotate(angle, rad, inplace)
     end
 
     local cos, sin = math.cos(angle), math.sin(angle)
+    local x, y = self.x, self.y
 
-    self.x = self.x*cos - self.y*sin
-    self.y = self.x*sin + self.y*cos
+    self.x = x*cos - y*sin
+    self.y = x*sin + y*cos
 
     return self
 end
@@ -204,6 +205,13 @@ end
 ---@return string
 function Vector2:__tostring()
     return 'Vector2(' .. self.x .. ', ' .. self.y .. ')'
+end
+
+
+---Compares the vector with another one.
+---@return boolean
+function Vector2:__eq(v)
+    return self.x == v.x and self.y == v.y
 end
 
 
