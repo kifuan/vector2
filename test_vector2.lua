@@ -34,3 +34,8 @@ assert(a:cross(b) == 21-28)
 
 -- Rotate the vector.
 assert(a:rotate(90, false, false) == Vector2.new(-4, 3))
+
+
+-- Addition and subtraction.
+assert(a + b == Vector2.new(10, 11))
+assert(a - b == Vector2.new(-4, -3))
