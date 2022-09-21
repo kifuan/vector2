@@ -71,6 +71,24 @@ function Vector2:len()
 end
 
 
+---Calcuates the squred distance with another vector.
+---@param v Vector2
+---@return number
+function Vector2:dist2(v)
+    local dx = v.x - self.x
+    local dy = v.y - self.y
+    return dx*dx + dy*dy
+end
+
+
+---Calculates the distance with another vector.
+---@param v Vector2
+---@return number
+function Vector2:dist(v)
+    return math.sqrt(self:dist2(v))
+end
+
+
 ---Gets normalized vector.
 ---@param inplace? boolean whether this operation is inplace, default by true.
 ---@param err? boolean whether this function could throw an error.
