@@ -89,42 +89,48 @@ function Vector2:dist(v)
 end
 
 
----Gets normalized vector.
----@param inplace? boolean whether this operation is inplace, default by true.
+---Gets normalized vector inplace.
 ---@param silent? boolean whether this function should be silent when it is zero-vector, default by true.
 ---@return Vector2
-function Vector2:normalize(inplace, silent)
+function Vector2:normalizeInplace(silent)
     if silent == nil then
         silent = true
     end
 
-    local len = self:len()
-    if len == 0 then
+    local scale = 1 / self:len()
+    if math.huge == scale then
         if not silent then
-            error('Cannot normalize zero-vector.')
+            error('Cannot normalize zero vector.')
         end
         return self
     end
-    return self:scale(1 / len, inplace)
+    return self:scaleInplace(scale)
+end
+
+
+---Gets normalized vector.
+---@param silent? boolean whether this function should be silent when it is zero-vector, default by true.
+---@return Vector2
+function Vector2:normalize(silent)
+    return self:clone():normalizeInplace(silent)
+end
+
+
+---Scales the vector inplace.
+---@param n number
+---@return Vector2
+function Vector2:scaleInplace(n)
+    self.x = n * self.x
+    self.y = n * self.y
+    return self
 end
 
 
 ---Scales the vector.
 ---@param n number
----@param inplace? boolean whether this operation is inplace, default by true.
 ---@return Vector2
-function Vector2:scale(n, inplace)
-    if inplace == nil then
-        inplace = true
-    end
-
-    if not inplace then
-        self = self:clone()
-    end
-
-    self.x = n * self.x
-    self.y = n * self.y
-    return self
+function Vector2:scale(n)
+    return self:clone():scaleInplace(n)
 end
 
 
@@ -146,26 +152,17 @@ function Vector2:cross(v)
 end
 
 
----Rotates the vector with specified angle.
+---Rotates the vector with specified angle inplace.
 ---@param angle number the angle to rotate.
 ---@param rad? boolean whether the angle is in radians, default by false.
----@param inplace? boolean whether the operation is inplace, default by true.
 ---@return Vector2
-function Vector2:rotate(angle, rad, inplace)
+function Vector2:rotateInplace(angle, rad)
     if rad == nil then
         rad = false
     end
 
-    if inplace == nil then
-        inplace = true
-    end
-
     if not rad then
-        angle = angle * math.pi / 180
-    end
-
-    if not inplace then
-        self = self:clone()
+        angle = math.rad(angle)
     end
 
     local cos, sin = math.cos(angle), math.sin(angle)
@@ -175,6 +172,15 @@ function Vector2:rotate(angle, rad, inplace)
     self.y = x*sin + y*cos
 
     return self
+end
+
+
+---Rotates the vector with specified angle.
+---@param angle number the angle to rotate.
+---@param rad? boolean whether the angle is in radians, default by false.
+---@return Vector2
+function Vector2:rotate(angle, rad)
+    return self:clone():rotateInplace(angle, rad)
 end
 
 

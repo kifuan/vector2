@@ -13,27 +13,23 @@ assert(a:dist(b) == 5)
 
 local a1 = a:clone()
 
--- Non-inplace normalize method.
-a1:normalize(false)
-assert(a == a1)
-
 -- Inplace normalize method.
-a1:normalize()
+a1:normalizeInplace()
 assert(a ~= a1)
 
 -- Try to normlaize a zero vector.
-local ok = pcall(zero.normalize, zero, true, false)
+local ok = pcall(zero.normalize, zero, false)
 assert(not ok)
 
 -- Scale the vector.
-assert(a:scale(2, false) == Vector2.new(6, 8))
+assert(a:scale(2) == Vector2.new(6, 8))
 
 -- Dot- and cross- product.
 assert(a:dot(b) == 21+28)
 assert(a:cross(b) == 21-28)
 
 -- Rotate the vector.
-assert(a:rotate(90, false, false) == Vector2.new(-4, 3))
+assert(a:rotate(90) == Vector2.new(-4, 3))
 
 
 -- Addition and subtraction.
