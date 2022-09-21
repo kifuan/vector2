@@ -291,6 +291,13 @@ function Vector2:__sub(v)
 end
 
 
+---Gets the vector in opposite direction.
+---@return Vector2
+function Vector2:__unm()
+    return self:scale(-1)
+end
+
+
 ---Shows the vector in string.
 ---@return string
 function Vector2:__tostring()

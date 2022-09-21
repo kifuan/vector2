@@ -34,9 +34,10 @@ assert(feq(a:cross(b), 21-28))
 assert(a:rotate(90) == Vector2.new(-4, 3))
 
 
--- Addition and subtraction.
+-- Operators.
 assert(a + b == Vector2.new(10, 11))
 assert(a - b == Vector2.new(-4, -3))
+assert(-a == Vector2.new(-3, -4))
 
 
 -- Vector status.
