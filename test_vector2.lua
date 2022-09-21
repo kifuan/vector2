@@ -16,7 +16,7 @@ assert(feq(a:dist(b), 5))
 local a1 = a:clone()
 
 -- Inplace normalize method.
-a1:normalizeInplace()
+a1:normalizeIp()
 assert(a ~= a1)
 
 -- Try to normlaize a zero vector.

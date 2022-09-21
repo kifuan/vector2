@@ -105,7 +105,7 @@ end
 ---Gets normalized vector inplace.
 ---@param silent? boolean whether this function should be silent when it is zero-vector, default by true.
 ---@return Vector2
-function Vector2:normalizeInplace(silent)
+function Vector2:normalizeIp(silent)
     if silent == nil then
         silent = true
     end
@@ -116,7 +116,7 @@ function Vector2:normalizeInplace(silent)
         end
         return self
     end
-    return self:scaleInplace(1/self:len())
+    return self:scaleIp(1/self:len())
 end
 
 
@@ -124,14 +124,14 @@ end
 ---@param silent? boolean whether this function should be silent when it is zero-vector, default by true.
 ---@return Vector2
 function Vector2:normalize(silent)
-    return self:clone():normalizeInplace(silent)
+    return self:clone():normalizeIp(silent)
 end
 
 
 ---Scales the vector inplace.
 ---@param n number
 ---@return Vector2
-function Vector2:scaleInplace(n)
+function Vector2:scaleIp(n)
     self.x = n * self.x
     self.y = n * self.y
     return self
@@ -142,7 +142,7 @@ end
 ---@param n number
 ---@return Vector2
 function Vector2:scale(n)
-    return self:clone():scaleInplace(n)
+    return self:clone():scaleIp(n)
 end
 
 
@@ -168,7 +168,7 @@ end
 ---@param angle number the angle to rotate.
 ---@param rad? boolean whether the angle is in radians, default by false.
 ---@return Vector2
-function Vector2:rotateInplace(angle, rad)
+function Vector2:rotateIp(angle, rad)
     if rad == nil then
         rad = false
     end
@@ -192,7 +192,7 @@ end
 ---@param rad? boolean whether the angle is in radians, default by false.
 ---@return Vector2
 function Vector2:rotate(angle, rad)
-    return self:clone():rotateInplace(angle, rad)
+    return self:clone():rotateIp(angle, rad)
 end
 
 
@@ -200,7 +200,7 @@ end
 ---Note that we won't check whether n is normalized.
 ---@param n Vector2
 ---@return Vector2 itself.
-function Vector2:reflectInplace(n)
+function Vector2:reflectIp(n)
     ---R = I - 2*dot(I,N)N
     local a = n:scale(-2*self:dot(n))
     return self:incV(a)
@@ -212,7 +212,7 @@ end
 ---@param n Vector2
 ---@return Vector2
 function Vector2:reflect(n)
-    return self:clone():reflectInplace(n)
+    return self:clone():reflectIp(n)
 end
 
 
