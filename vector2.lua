@@ -74,8 +74,7 @@ Vector2.new = v2
 ---Gets the squared length of the vector.
 ---@return number
 function Vector2:len2()
-    local x, y = self.x, self.y
-    return x*x + y*y
+    return self.x^2 + self.y^2
 end
 
 
@@ -92,7 +91,7 @@ end
 function Vector2:dist2(v)
     local dx = v.x - self.x
     local dy = v.y - self.y
-    return dx*dx + dy*dy
+    return dx^2 + dy^2
 end
 
 
@@ -162,7 +161,7 @@ end
 ---@param v Vector2
 ---@return number
 function Vector2:cross(v)
-    return self.x * v.y - self.y * v.x
+    return self.x*v.y - self.y*v.x
 end
 
 
