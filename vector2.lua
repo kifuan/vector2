@@ -114,6 +114,16 @@ function Vector2:dot(v)
 end
 
 
+---Gets the cross- or out-product.
+---It should be a vector3 like (0, 0, z), this function
+---only returns the Z coordinate.
+---@param v Vector2
+---@return number the length of result vector.
+function Vector2:cross(v)
+    return self.x * v.y - self.y * v.x
+end
+
+
 ---Adds the vector with another one.
 ---@param v Vector2
 ---@return Vector2
