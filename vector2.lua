@@ -106,7 +106,7 @@ function Vector2:scale(n, inplace)
 end
 
 
----Gets the dot product.
+---Calcuates the dot- or scalar-product.
 ---@param v Vector2
 ---@return number
 function Vector2:dot(v)
@@ -114,11 +114,11 @@ function Vector2:dot(v)
 end
 
 
----Gets the cross- or out-product.
+---Calcuates the cross- or out-product.
 ---It should be a vector3 like (0, 0, z), this function
 ---only returns the Z coordinate.
 ---@param v Vector2
----@return number the length of result vector.
+---@return number
 function Vector2:cross(v)
     return self.x * v.y - self.y * v.x
 end
