@@ -56,14 +56,21 @@ print(v1:dot(v2))
 
 ## APIs
 
-All functions with `Ip` suffix means that they are **inplace functions**, which are not listed here.
+Some functions are *inplace*, that is, all effects will be applied to a copy of itself.
 
-**NOTE THAT YOU SHOULD use `feq(a, b)` to compare floats, as it allows tiny deviation(1e-4).**
+**NOTE: YOU SHOULD use `feq(a, b)` to compare floats, as it allows tiny deviation(1e-4).**
 
-| Name                                                         | Meaning                                                      |
+## Utility functions
+
+| Name                                         | Description                                 |
+| -------------------------------------------- | ------------------------------------------- |
+| `feq(a: number, b: number): boolean`         | Compares two floats with deviation allowed. |
+| `Vector2.new(x: number, y: number): Vector2` | Creates new vector.                         |
+
+## Non-inplace functions
+
+| Name                                                         | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `feq(a: number, b: number): boolean`                         | Compares two floats with deviation allowed.                  |
-| `Vector2.new(x: number, y: number): Vector2`                 | Creates new vector.                                          |
 | `Vector2:len2(): number`                                     | Gets squared length.                                         |
 | `Vector2:len(): number`                                      | Gets length.                                                 |
 | `Vector2:dist2(v: Vector2): number`                          | Squared distance with another vector.                        |
@@ -73,17 +80,28 @@ All functions with `Ip` suffix means that they are **inplace functions**, which 
 | `Vector2:dot(v: Vector2): number`                            | Calculates the dot- or scalar-product.                       |
 | `Vector2:cross(v: Vector2): number`                          | Calculates the cross- or out-product(in number).             |
 | `Vector2:rotate(angle: number, rad: boolean = false): Vector2` | Gets a vector rotated with specified angle. `rad` means whether the angle is in radians. |
-| `Vector2:reflect(n: Vector2, silent: boolean = true): Vector2` | Gets a vector reflected of the given vector. `silent` is the same as the parameter  `Vector2:normalize` takes. |
+| `Vector2:reflect(n: Vector2, normalized: boolean = false, silent: boolean = true): Vector2` | Gets a vector reflected of the given vector. `normalized` is whether the given normal vector is already normalized(it will not check), and `silent` is whether it should silent when something goes wrong. |
 | `Vector2:isZero(): boolean`                                  | Returns whether the vector is a zero-vector.                 |
 | `Vector2:isNormal(): boolean`                                | Returns whether the vector is normal.                        |
 | `Vector2:clone(): Vector2`                                   | Clones the vector.                                           |
-| `Vector2:incX(n: number): Vector2`                           | Increases x by n.                                            |
-| `Vector2:incY(n: number): Vector2`                           | Increases y by n.                                            |
-| `Vector2:inc(x: number, y: number): Vector2`                 | Increases both x and y.                                      |
-| `Vector2:incV(v: Vector2): Vector2`                          | Increases by given vector.                                   |
 | `Vector2:__sub(v: Vector2): Vector2`                         | v1 - v2                                                      |
 | `Vector2:__unm(): Vector2`                                   | -v1                                                          |
 | `Vector2:__eq(v: Vector2): boolean`                          | v1 == v2                                                     |
 | `Vector2:__tostring(): string`                               | tostring(v1)                                                 |
 
 Tips: You can use `len2`, `dist2` when you just care about whether the value is `0` or `1`.
+
+## Inplace functions
+
+They should be called when you just want to change the vector itself.
+
+| Name                                                         | Description                 |
+| ------------------------------------------------------------ | --------------------------- |
+| `Vector2:incX(n: number): Vector2`                           | Increases x by n.           |
+| `Vector2:incY(n: number): Vector2`                           | Increases y by n.           |
+| `Vector2:inc(x: number, y: number): Vector2`                 | Increases both x and y.     |
+| `Vector2:incV(v: Vector2): Vector2`                          | Increases by given vector.  |
+| `Vector2:normalizeIp(silent: boolean = true): Vector2`       | Inplace `Vector:normalize`. |
+| `Vector2:scaleIp(n: number): Vector2`                        | Inplace `Vector:scale`      |
+| `Vector2:rotateIp(angle: number, rad: boolean = false): Vector2` | Inplace `Vector:rotate`.    |
+| `Vector2:reflectIp(n: Vector2, normalized: boolean = false, silent: boolean = true): Vector2` | Inplace `Vector:reflect`.   |
