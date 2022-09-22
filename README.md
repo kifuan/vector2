@@ -60,6 +60,8 @@ Some functions are *non-inplace*, that is, all effects will not change the vecto
 
 **NOTE: YOU SHOULD use `feq(a, b)` to compare floats, as it allows tiny deviation(1e-4).**
 
+Besides, `==` operator is overwritten for `Vector2` with deviation allowed, so you can compare two vectors with floats simply by `v1 == v2`.
+
 ## Utility functions
 
 | Name                                         | Description                                 |
