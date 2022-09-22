@@ -37,7 +37,7 @@ local hasffi, ffi = pcall(require, 'ffi')
 local v2
 
 
-if not hasffi then
+if hasffi then
     ffi.cdef[[
         typedef struct { double x, y; } Vector2;
     ]]
