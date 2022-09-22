@@ -85,7 +85,7 @@ function Vector2:len()
 end
 
 
----Calcuates the squred dista965283nce with another vector.
+---Calculates the squared distance to another vector.
 ---@param v Vector2
 ---@return number
 function Vector2:dist2(v)
@@ -95,7 +95,7 @@ function Vector2:dist2(v)
 end
 
 
----Calculates the distance with another vector.
+---Calculates the distance to another vector.
 ---@param v Vector2
 ---@return number
 function Vector2:dist(v)

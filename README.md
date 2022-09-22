@@ -73,8 +73,8 @@ Some functions are *inplace*, that is, all effects will be applied to a copy of 
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `Vector2:len2(): number`                                     | Gets squared length.                                         |
 | `Vector2:len(): number`                                      | Gets length.                                                 |
-| `Vector2:dist2(v: Vector2): number`                          | Squared distance with another vector.                        |
-| `Vector2:dist(v: Vector2): number`                           | Distance with another vector.                                |
+| `Vector2:dist2(v: Vector2): number`                          | Calculates the squared distance to another vector.           |
+| `Vector2:dist(v: Vector2): number`                           | Calculates the distance to another vector.                   |
 | `Vector2:normalize(silent: boolean = true): Vector2`         | Gets normalized vector. `silent` means whether it should throw an error when normalizing a zero-vector. |
 | `Vector2:scale(n: number): Vector2`                          | Scales the vector by number.                                 |
 | `Vector2:dot(v: Vector2): number`                            | Calculates the dot- or scalar-product.                       |
@@ -84,11 +84,11 @@ Some functions are *inplace*, that is, all effects will be applied to a copy of 
 | `Vector2:isZero(): boolean`                                  | Returns whether the vector is a zero-vector.                 |
 | `Vector2:isNormal(): boolean`                                | Returns whether the vector is normal.                        |
 | `Vector2:clone(): Vector2`                                   | Clones the vector.                                           |
-| `Vector2:__add(v: Vector2): Vector2`                         | v1 + v2                                                      |
-| `Vector2:__sub(v: Vector2): Vector2`                         | v1 - v2                                                      |
-| `Vector2:__unm(): Vector2`                                   | -v1                                                          |
-| `Vector2:__eq(v: Vector2): boolean`                          | v1 == v2                                                     |
-| `Vector2:__tostring(): string`                               | tostring(v1)                                                 |
+| `Vector2:__add(v: Vector2): Vector2`                         | `v1 + v2`                                                    |
+| `Vector2:__sub(v: Vector2): Vector2`                         | `v1 - v2`                                                    |
+| `Vector2:__unm(): Vector2`                                   | `- v1`                                                       |
+| `Vector2:__eq(v: Vector2): boolean`                          | `v1 == v2`                                                   |
+| `Vector2:__tostring(): string`                               | `tostring(v1)`                                               |
 
 Tips: You can use `len2`, `dist2` when you just care about whether the value is `0` or `1`.
 
