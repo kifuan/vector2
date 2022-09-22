@@ -43,7 +43,6 @@ if not hasffi then
     ]]
     local CVector2 = ffi.metatype('Vector2', Vector2)
 
-
     v2 = function(x, y)
         return CVector2(x, y)
     end
@@ -117,6 +116,7 @@ function Vector2:normalizeIp(silent)
         end
         return self
     end
+
     return self:scaleIp(1/self:len())
 end
 
@@ -210,6 +210,7 @@ function Vector2:reflectIp(n, normalized, silent)
     if not normalized then
         n = n:normalize(silent)
     end
+
     if not silent and n:isZero() then
         error('Normal must not be zero-vector.')
     end
