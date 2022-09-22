@@ -170,10 +170,6 @@ end
 ---@param rad? boolean whether the angle is in radians, default by false.
 ---@return Vector2
 function Vector2:rotateIp(angle, rad)
-    if rad == nil then
-        rad = false
-    end
-
     if not rad then
         angle = math.rad(angle)
     end
@@ -199,22 +195,30 @@ end
 
 ---Gets a vector reflected of a given vector inplace.
 ---@param n Vector2
----@param silent? boolean the same as the parameter Vector2:normalize() takes.
+---@param normalized? boolean whether the vector has been normalized, default by false.
+---@param silent? boolean whether it should be silent when something goes wrong, default by true.
 ---@return Vector2 itself.
-function Vector2:reflectIp(n, silent)
-    ---R = I - 2*dot(I,N)N
-    n = n:normalize(silent)
-    local a = n:scale(-2*self:dot(n))
-    return self:incV(a)
+function Vector2:reflectIp(n, normalized, silent)
+    if not normalized then
+        n = n:normalize(silent)
+    end
+    if not silent and n:isZero() then
+        error('Normal must not be zero-vector.')
+    end
+    -- If the normal vector is indeed zero-vector, then
+    -- self won't change because it just means
+    -- that the increment vector will be zero-vector.
+    return self:incV(n:scale(-2*self:dot(n)))
 end
 
 
 ---Gets a vector reflected of a given vector.
 ---@param n Vector2
----@param silent? boolean the same as the parameter Vector2:normalize() takes.
+---@param normalized? boolean whether the vector has been normalized, default by false.
+---@param silent? boolean whether it should be silent when something goes wrong, default by true.
 ---@return Vector2
-function Vector2:reflect(n, silent)
-    return self:clone():reflectIp(n, silent)
+function Vector2:reflect(n, normalized, silent)
+    return self:clone():reflectIp(n, normalized, silent)
 end
 
 
