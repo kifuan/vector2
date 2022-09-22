@@ -199,6 +199,14 @@ end
 ---@param silent? boolean whether it should be silent when something goes wrong, default by true.
 ---@return Vector2 itself.
 function Vector2:reflectIp(n, normalized, silent)
+    if silent == nil then
+        silent = true
+    end
+
+    if normalized == nil then
+        normalized = false
+    end
+
     if not normalized then
         n = n:normalize(silent)
     end
