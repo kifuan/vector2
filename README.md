@@ -65,7 +65,7 @@ Some functions are *inplace*, that is, all effects will be applied to a copy of 
 | Name                                         | Description                                 |
 | -------------------------------------------- | ------------------------------------------- |
 | `feq(a: number, b: number): boolean`         | Compares two floats with deviation allowed. |
-| `Vector2.new(x: number, y: number): Vector2` | Creates new vector.                         |
+| `Vector2.new(x: number, y: number): Vector2` | Creates a new vector.                        |
 
 ## Non-inplace functions
 
