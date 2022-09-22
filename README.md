@@ -84,6 +84,7 @@ Some functions are *inplace*, that is, all effects will be applied to a copy of 
 | `Vector2:isZero(): boolean`                                  | Returns whether the vector is a zero-vector.                 |
 | `Vector2:isNormal(): boolean`                                | Returns whether the vector is normal.                        |
 | `Vector2:clone(): Vector2`                                   | Clones the vector.                                           |
+| `Vector2:__add(v: Vector2): Vector2`                         | v1 + v2                                                      |
 | `Vector2:__sub(v: Vector2): Vector2`                         | v1 - v2                                                      |
 | `Vector2:__unm(): Vector2`                                   | -v1                                                          |
 | `Vector2:__eq(v: Vector2): boolean`                          | v1 == v2                                                     |
