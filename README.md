@@ -56,7 +56,7 @@ print(v1:dot(v2))
 
 ## APIs
 
-Some functions are *non-inplace*, that is, all effects will be applied to a copy of itself.
+Some functions are *non-inplace*, that is, all effects will not change the vector itself.
 
 **NOTE: YOU SHOULD use `feq(a, b)` to compare floats, as it allows tiny deviation(1e-4).**
 
