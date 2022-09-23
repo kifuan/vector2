@@ -35,22 +35,26 @@ local Vector2 = {}
 local isJIT
 
 
--- Just a placeholder.
-local _
-
-
 Vector2.__index = Vector2
-_, isJIT, Vector2.new = xpcall(function()
+
+
+xpcall(function()
     local ffi = require('ffi')
     ffi.cdef [[
         typedef struct { double x, y; } Vector2;
     ]]
+
     local CVector2 = ffi.metatype('Vector2', Vector2)
-    return true, function(x, y)
+
+    isJIT = true
+
+    function Vector2.new(x, y)
         return CVector2(x, y)
     end
 end, function()
-    return false, function(x, y)
+    isJIT = false
+
+    function Vector2.new(x, y)
         return setmetatable({x=x, y=y}, Vector2)
     end
 end)
