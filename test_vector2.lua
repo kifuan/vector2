@@ -1,49 +1,119 @@
-local v = require('vector2')
-local Vector2 = v.Vector2
-local feq = v.feq
+local vector2 = require('vector2')
+local Vector2 = vector2.Vector2
+local feq = vector2.feq
 
-local a = Vector2.new(3, 4)
-local b = Vector2.new(7, 7)
-local zero = Vector2.new(0, 0)
-
-assert(feq(a:len2(), 25))
-assert(feq(a:len(), 5))
+local tests = {}
 
 
-assert(feq(a:dist2(b), 25))
-assert(feq(a:dist(b), 5))
-
-local a1 = a:clone()
-
--- Inplace normalize method.
-a1:normalizeIp()
-assert(a ~= a1)
-
--- Try to normlaize a zero vector.
-local ok = pcall(zero.normalize, zero, false)
-assert(not ok)
-
--- Scale the vector.
-assert(a:scale(2) == Vector2.new(6, 8))
-
--- Dot- and cross- product.
-assert(feq(a:dot(b), 21+28))
-assert(feq(a:cross(b), 21-28))
-
--- Rotate the vector.
-assert(a:rotate(90) == Vector2.new(-4, 3))
+---@param a Vector2
+---@param b Vector2
+function tests.lenDist(a, b)
+    local len2 = a.x^2+a.y^2
+    local dist2 = (a.x-b.x)^2+(a.y-b.y)^2
+    assert(feq(a:len2(), len2))
+    assert(feq(a:len(), math.sqrt(len2)))
+    assert(feq(a:dist2(b), dist2))
+    assert(feq(a:dist(b), math.sqrt(dist2)))
+end
 
 
--- Operators.
-assert(a + b == Vector2.new(10, 11))
-assert(a - b == Vector2.new(-4, -3))
-assert(-a == Vector2.new(-3, -4))
+---@param a Vector2
+---@param b Vector2
+function tests.normalize(a, b)
+    local normalizedV1 = a:normalize()
+    assert(normalizedV1:isNormal())
+    assert(Vector2.new(1, 0):isNormal())
+    -- Non-inplace function.
+    assert(a ~= normalizedV1)
+
+    -- Inplace function.
+    b:normalizeIp()
+    assert(b:isNormal())
+
+    -- Cannot normalize zero-vector.
+    local zero = Vector2.new(0, 0)
+    local ok = pcall(zero.normalize, zero, false)
+    assert(not ok)
+end
 
 
--- Vector status.
-assert(zero:isZero())
-assert(a:normalize():isNormal())
+---@param a Vector2
+---@param b Vector2
+function tests.scale(a, b)
+    local scaled = a:scale(2)
+    assert(scaled == Vector2.new(a.x*2, a.y*2))
+
+    local b1 = b:clone()
+    b:scaleIp(2)
+    assert(b1 ~= b)
+end
 
 
--- Reflection.
-assert(a:reflect(Vector2.new(1,1)) == Vector2.new(-4, -3))
+---@param a Vector2
+---@param b Vector2
+function tests.dotCross(a, b)
+    assert(feq(a:dot(b), a.x*b.x+a.y*b.y))
+    local cosAngle = a:dot(b)/a:len()/b:len()
+    local sinAngle = math.sqrt(1 - cosAngle^2)
+    assert(feq(math.abs(a:cross(b)), a:len() * b:len() * sinAngle))
+end
+
+
+---@param a Vector2
+---@param b Vector2
+function tests.rotate(a, b)
+    assert(a:rotate(90) == a:rotate(math.pi / 2, true))
+
+    local b1 = b:clone()
+    b:rotateIp(90)
+    assert(feq(b1:dot(b), 0))
+end
+
+
+---@param a Vector2
+---@param b Vector2
+function tests.operators(a, b)
+    assert(a+b == Vector2.new(a.x+b.x, a.y+b.y))
+    assert(a-b == Vector2.new(a.x-b.x, a.y-b.y))
+    assert(-a == Vector2.new(-a.x, -a.y))
+end
+
+
+---@param a Vector2
+---@param b Vector2
+function tests.reflect(a, b)
+    local r = a:reflect(Vector2.new(0, 1))
+    assert(r == Vector2.new(a.x, -a.y))
+
+    local ok1 = pcall(b.reflect, b, Vector2.new(0, 0), true, false)
+    assert(not ok1)
+
+    local ok2 = pcall(b.reflect, b, Vector2.new(0, 0), false, false)
+    assert(not ok2)
+
+    local b1 = b:clone()
+    b:reflectIp(Vector2.new(0, 1))
+    assert(b == Vector2.new(b1.x, -b1.y))
+end
+
+
+function tests:run()
+    local function genVec()
+        local x, y = 0, 0
+        -- It mustn't be a zero-vector.
+        while x == 0 or y == 0 do
+            x = math.random(-100, 100)
+            y = math.random(-100, 100)
+        end
+        return Vector2.new(x, y)
+    end
+    for name, func in pairs(self) do
+        if name ~= 'run' then
+            print('Testing ' .. name)
+            func(genVec(), genVec())
+        end
+    end
+end
+
+
+tests:run()
