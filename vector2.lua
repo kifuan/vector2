@@ -29,28 +29,26 @@ SOFTWARE.
 ---@field y number
 local Vector2 = {}
 
-local hasffi, ffi = pcall(require, 'ffi')
 
----The function to construct vector2 whose
----behavior depends on whether it has ffi library.
----@type fun(x: number, y: number): Vector2
-local v2
+-- Just a placeholder.
+local _
 
 
-if hasffi then
-    ffi.cdef[[
+Vector2.__index = Vector2
+_, Vector2.new = xpcall(function()
+    local ffi = require('ffi')
+    ffi.cdef [[
         typedef struct { double x, y; } Vector2;
     ]]
     local CVector2 = ffi.metatype('Vector2', Vector2)
-
-    v2 = function(x, y)
+    return function(x, y)
         return CVector2(x, y)
     end
-else
-    v2 = function(x, y)
+end, function()
+    return function(x, y)
         return setmetatable({x=x, y=y}, Vector2)
     end
-end
+end)
 
 
 ---Allowed deviation for floats.
@@ -64,10 +62,6 @@ local ALLOWED_DEVIATION = 1e-4
 local function feq(a, b)
     return math.abs(a-b) < ALLOWED_DEVIATION
 end
-
-
-Vector2.__index = Vector2
-Vector2.new = v2
 
 
 ---Gets the squared length of the vector.
