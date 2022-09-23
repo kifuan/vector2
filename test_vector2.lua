@@ -97,7 +97,7 @@ function tests.reflect(a, b)
 end
 
 
-function tests:run()
+local function run()
     local function genVec()
         local x, y = 0, 0
         -- It mustn't be a zero-vector.
@@ -107,13 +107,11 @@ function tests:run()
         end
         return Vector2.new(x, y)
     end
-    for name, func in pairs(self) do
-        if name ~= 'run' then
-            print('Testing ' .. name)
-            func(genVec(), genVec())
-        end
+    for name, func in pairs(tests) do
+        print('Testing ' .. name)
+        func(genVec(), genVec())
     end
 end
 
 
-tests:run()
+run()
