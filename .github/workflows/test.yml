@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        luaVersion: ["5.1", "5.4", "luajit"]
+        luaVersion: ["5.1", "luajit"]
 
     runs-on: ubuntu-latest
 
