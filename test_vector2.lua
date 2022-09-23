@@ -1,6 +1,7 @@
 local vector2 = require('vector2')
 local Vector2 = vector2.Vector2
 local feq = vector2.feq
+local isJIT = vector2.isJIT
 
 local tests = {}
 
@@ -94,6 +95,12 @@ function tests.reflect(a, b)
     local b1 = b:clone()
     b:reflectIp(Vector2.new(0, 1))
     assert(b == Vector2.new(b1.x, -b1.y))
+end
+
+
+function tests.checkJIT()
+    local jit = pcall(require, 'jit')
+    assert(jit == isJIT)
 end
 
 

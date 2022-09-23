@@ -30,22 +30,27 @@ SOFTWARE.
 local Vector2 = {}
 
 
+---Whether it is LuaJIT.
+---@type boolean
+local isJIT
+
+
 -- Just a placeholder.
 local _
 
 
 Vector2.__index = Vector2
-_, Vector2.new = xpcall(function()
+_, isJIT, Vector2.new = xpcall(function()
     local ffi = require('ffi')
     ffi.cdef [[
         typedef struct { double x, y; } Vector2;
     ]]
     local CVector2 = ffi.metatype('Vector2', Vector2)
-    return function(x, y)
+    return true, function(x, y)
         return CVector2(x, y)
     end
 end, function()
-    return function(x, y)
+    return false, function(x, y)
         return setmetatable({x=x, y=y}, Vector2)
     end
 end)
@@ -322,5 +327,6 @@ end
 
 return {
     Vector2 = Vector2,
+    isJIT = isJIT,
     feq = feq
 }
