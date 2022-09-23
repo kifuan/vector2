@@ -62,17 +62,21 @@ Some functions are *non-inplace*, that is, all effects will not change the vecto
 
 Besides, `==` operator is overwritten for `Vector2` with deviation allowed, so you can compare two vectors with floats simply by `v1 == v2`.
 
-## Utility functions
+## Globals
 
-| Name                                         | Description                                 |
-| -------------------------------------------- | ------------------------------------------- |
-| `feq(a: number, b: number): boolean`         | Compares two floats with deviation allowed. |
-| `Vector2.new(x: number, y: number): Vector2` | Creates a new vector.                        |
+They are actually module-global variable, which won't affect `_G`.
+
+| Name                                 | Description                                  |
+| ------------------------------------ | -------------------------------------------- |
+| `feq(a: number, b: number): boolean` | Compares two floats with deviation allowed.  |
+| `isJIT: boolean`                     | A variable representing whether JIT is used. |
+
 
 ## Non-inplace functions
 
 | Name                                                         | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `Vector2.new(x: number, y: number): Vector2` | Creates a new vector.                        |
 | `Vector2:len2(): number`                                     | Gets squared length.                                         |
 | `Vector2:len(): number`                                      | Gets length.                                                 |
 | `Vector2:dist2(v: Vector2): number`                          | Calculates the squared distance to another vector.           |
