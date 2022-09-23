@@ -48,12 +48,20 @@ xpcall(function()
 
     isJIT = true
 
+    ---Creates new vector.
+    ---@param x number
+    ---@param y number
+    ---@return Vector2
     function Vector2.new(x, y)
         return CVector2(x, y)
     end
 end, function()
     isJIT = false
 
+    ---Creates new vector.
+    ---@param x number
+    ---@param y number
+    ---@return Vector2
     function Vector2.new(x, y)
         return setmetatable({x=x, y=y}, Vector2)
     end
