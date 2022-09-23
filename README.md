@@ -38,18 +38,16 @@ print(v1:dot(v2))
       typedef struct { double x, y; } Vector2;
   ]]
   local CVector2 = ffi.metatype('Vector2', Vector2)
-  
-  v2 = function(x, y)
-      return CVector2(x, y)
-  end
   ```
+
+  It can use `struct` in C, which is much more faster than `table` in Lua.
 
 + Both `Lua` and `LuaJIT` are supported.
   
   It just use normal tables for pure Lua:
 
   ```lua
-  v2 = function(x, y)
+  function Vector2.new(x, y)
       return setmetatable({x=x, y=y}, Vector2)
   end
   ```
