@@ -14,7 +14,7 @@ So you can just copy it to your project, or wherever you want.
 Then, you can just use it like what it should be in any other language:
 
 ```lua
-local Vector2 = require('vector2').Vector2
+local Vector2 = require('Vector2')
 
 local v1 = Vector2.new(1, 2)
 local v2 = Vector2.new(2, 5)
@@ -60,53 +60,54 @@ Some functions are *non-inplace*, that is, all effects will not change the vecto
 
 Besides, `==` operator is overwritten for `Vector2` with deviation allowed, so you can compare two vectors with floats simply by `v1 == v2`.
 
-## Globals
+## Static fields
 
-They are actually module-global variable, which won't affect `_G`.
+They should be accessed via `Vector2.xxx`, such as using `Vector2.isJIT` to get `isJIT` field.
 
 | Name                                 | Description                                  |
 | ------------------------------------ | -------------------------------------------- |
 | `feq(a: number, b: number): boolean` | Compares two floats with deviation allowed.  |
 | `isJIT: boolean`                     | A variable representing whether JIT is used. |
-
+| `new(x: number, y: number): Vector2` | Creates a new vector.                        |
 
 ## Non-inplace functions
 
-| Name                                                         | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `Vector2.new(x: number, y: number): Vector2` | Creates a new vector.                        |
-| `Vector2:len2(): number`                                     | Gets squared length.                                         |
-| `Vector2:len(): number`                                      | Gets length.                                                 |
-| `Vector2:dist2(v: Vector2): number`                          | Calculates the squared distance to another vector.           |
-| `Vector2:dist(v: Vector2): number`                           | Calculates the distance to another vector.                   |
-| `Vector2:normalize(silent: boolean = true): Vector2`         | Gets normalized vector. `silent` means whether it should throw an error when normalizing a zero-vector. |
-| `Vector2:scale(n: number): Vector2`                          | Scales the vector by number.                                 |
-| `Vector2:dot(v: Vector2): number`                            | Calculates the dot- or scalar-product.                       |
-| `Vector2:cross(v: Vector2): number`                          | Calculates the cross- or out-product(in number).             |
-| `Vector2:rotate(angle: number, rad: boolean = false): Vector2` | Gets a vector rotated with specified angle. `rad` means whether the angle is in radians. |
-| `Vector2:reflect(n: Vector2, normalized: boolean = false, silent: boolean = true): Vector2` | Gets a vector reflected of the given vector. `normalized` is whether the given normal vector is already normalized(it will not check), and `silent` is whether it should silent when something goes wrong. |
-| `Vector2:isZero(): boolean`                                  | Returns whether the vector is a zero-vector.                 |
-| `Vector2:isNormal(): boolean`                                | Returns whether the vector is normal.                        |
-| `Vector2:clone(): Vector2`                                   | Clones the vector.                                           |
-| `Vector2:__add(v: Vector2): Vector2`                         | `v1 + v2`                                                    |
-| `Vector2:__sub(v: Vector2): Vector2`                         | `v1 - v2`                                                    |
-| `Vector2:__unm(): Vector2`                                   | `- v1`                                                       |
-| `Vector2:__eq(v: Vector2): boolean`                          | `v1 == v2`                                                   |
-| `Vector2:__tostring(): string`                               | `tostring(v1)`                                               |
+They are all `instance methods`, which should be called via `v:func()`, such as using `v:len2()` to get squared length.
 
 Tips: You can use `len2`, `dist2` when you just care about whether the value is `0` or `1`.
 
+| Name                                                         | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `len2(): number`                                             | Gets squared length.                                         |
+| `len(): number`                                              | Gets length.                                                 |
+| `dist2(v: Vector2): number`                                  | Calculates the squared distance to another vector.           |
+| `dist(v: Vector2): number`                                   | Calculates the distance to another vector.                   |
+| `normalize(silent: boolean = true): Vector2`                 | Gets normalized vector. `silent` means whether it should throw an error when normalizing a zero-vector. |
+| `scale(n: number): Vector2`                                  | Scales the vector by number.                                 |
+| `dot(v: Vector2): number`                                    | Calculates the dot- or scalar-product.                       |
+| `cross(v: Vector2): number`                                  | Calculates the cross- or out-product(in number).             |
+| `rotate(angle: number, rad: boolean = false): Vector2`       | Gets a vector rotated with specified angle. `rad` means whether the angle is in radians. |
+| `reflect(n: Vector2, normalized: boolean = false, silent: boolean = true): Vector2` | Gets a vector reflected of the given vector. `normalized` is whether the given normal vector is already normalized(it will not check), and `silent` is whether it should silent when something goes wrong. |
+| `isZero(): boolean`                                          | Returns whether the vector is a zero-vector.                 |
+| `isNormal(): boolean`                                        | Returns whether the vector is normal.                        |
+| `clone(): Vector2`                                           | Clones the vector.                                           |
+| `__add(v: Vector2): Vector2`                                 | `v1 + v2`                                                    |
+| `__sub(v: Vector2): Vector2`                                 | `v1 - v2`                                                    |
+| `__unm(): Vector2`                                           | `- v1`                                                       |
+| `__eq(v: Vector2): boolean`                                  | `v1 == v2`                                                   |
+| `__tostring(): string`                                       | `tostring(v1)`                                               |
+
 ## Inplace functions
 
-They should be called when you just want to change the vector itself.
+They should be called when you just want to change the vector itself, via `v:xxx()` as well.
 
 | Name                                                         | Description                 |
 | ------------------------------------------------------------ | --------------------------- |
-| `Vector2:incX(n: number): Vector2`                           | Increases x by n.           |
-| `Vector2:incY(n: number): Vector2`                           | Increases y by n.           |
-| `Vector2:inc(x: number, y: number): Vector2`                 | Increases both x and y.     |
-| `Vector2:incV(v: Vector2): Vector2`                          | Increases by given vector.  |
-| `Vector2:normalizeIp(silent: boolean = true): Vector2`       | Inplace `Vector:normalize`. |
-| `Vector2:scaleIp(n: number): Vector2`                        | Inplace `Vector:scale`      |
-| `Vector2:rotateIp(angle: number, rad: boolean = false): Vector2` | Inplace `Vector:rotate`.    |
-| `Vector2:reflectIp(n: Vector2, normalized: boolean = false, silent: boolean = true): Vector2` | Inplace `Vector:reflect`.   |
+| `incX(n: number): Vector2`                                   | Increases x by n.           |
+| `incY(n: number): Vector2`                                   | Increases y by n.           |
+| `inc(x: number, y: number): Vector2`                         | Increases both x and y.     |
+| `incV(v: Vector2): Vector2`                                  | Increases by given vector.  |
+| `normalizeIp(silent: boolean = true): Vector2`               | Inplace `Vector:normalize`. |
+| `scaleIp(n: number): Vector2`                                | Inplace `Vector:scale`      |
+| `rotateIp(angle: number, rad: boolean = false): Vector2`     | Inplace `Vector:rotate`.    |
+| `reflectIp(n: Vector2, normalized: boolean = false, silent: boolean = true): Vector2` | Inplace `Vector:reflect`.   |
