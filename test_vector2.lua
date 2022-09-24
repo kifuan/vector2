@@ -1,9 +1,11 @@
-local vector2 = require('vector2')
-local Vector2 = vector2.Vector2
-local feq = vector2.feq
-local isJIT = vector2.isJIT
+local Vector2 = require('Vector2')
 
 local tests = {}
+
+
+local function assertFeq(f1, f2)
+    assert(Vector2.feq(f1, f2), string.format('%g != %g', f1, f2))
+end
 
 
 ---@param a Vector2
@@ -11,10 +13,10 @@ local tests = {}
 function tests.lenDist(a, b)
     local len2 = a.x^2+a.y^2
     local dist2 = (a.x-b.x)^2+(a.y-b.y)^2
-    assert(feq(a:len2(), len2))
-    assert(feq(a:len(), math.sqrt(len2)))
-    assert(feq(a:dist2(b), dist2))
-    assert(feq(a:dist(b), math.sqrt(dist2)))
+    assertFeq(a:len2(), len2)
+    assertFeq(a:len(), math.sqrt(len2))
+    assertFeq(a:dist2(b), dist2)
+    assertFeq(a:dist(b), math.sqrt(dist2))
 end
 
 
@@ -53,10 +55,10 @@ end
 ---@param a Vector2
 ---@param b Vector2
 function tests.dotCross(a, b)
-    assert(feq(a:dot(b), a.x*b.x+a.y*b.y))
+    assertFeq(a:dot(b), a.x*b.x+a.y*b.y)
     local cosAngle = a:dot(b)/a:len()/b:len()
     local sinAngle = math.sqrt(1 - cosAngle^2)
-    assert(feq(math.abs(a:cross(b)), a:len() * b:len() * sinAngle))
+    assertFeq(math.abs(a:cross(b)), a:len() * b:len() * sinAngle)
 end
 
 
@@ -67,7 +69,7 @@ function tests.rotate(a, b)
 
     local b1 = b:clone()
     b:rotateIp(90)
-    assert(feq(b1:dot(b), 0))
+    assertFeq(b1:dot(b), 0)
 end
 
 
@@ -100,7 +102,7 @@ end
 
 function tests.checkJIT()
     local jit = pcall(require, 'jit')
-    assert(jit == isJIT)
+    assert(jit == Vector2.isJIT)
 end
 
 

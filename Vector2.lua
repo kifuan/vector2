@@ -27,6 +27,7 @@ SOFTWARE.
 ---@class Vector2
 ---@field x number
 ---@field y number
+---@field isJIT boolean
 local Vector2 = {}
 
 
@@ -46,7 +47,7 @@ xpcall(function()
 
     local CVector2 = ffi.metatype('Vector2', Vector2)
 
-    isJIT = true
+    Vector2.isJIT = true
 
     ---Creates new vector.
     ---@param x number
@@ -56,7 +57,7 @@ xpcall(function()
         return CVector2(x, y)
     end
 end, function()
-    isJIT = false
+    Vector2.isJIT = false
 
     ---Creates new vector.
     ---@param x number
@@ -79,6 +80,9 @@ local ALLOWED_DEVIATION = 1e-4
 local function feq(a, b)
     return math.abs(a-b) < ALLOWED_DEVIATION
 end
+
+
+Vector2.feq = feq
 
 
 ---Gets the squared length of the vector.
@@ -337,8 +341,4 @@ function Vector2:__eq(v)
 end
 
 
-return {
-    Vector2 = Vector2,
-    isJIT = isJIT,
-    feq = feq
-}
+return Vector2
