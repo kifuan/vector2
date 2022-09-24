@@ -31,11 +31,6 @@ SOFTWARE.
 local Vector2 = {}
 
 
----Whether it is LuaJIT.
----@type boolean
-local isJIT
-
-
 Vector2.__index = Vector2
 
 
