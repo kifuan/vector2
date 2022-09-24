@@ -106,6 +106,14 @@ function tests.checkJIT()
 end
 
 
+---@param a Vector2
+function tests.unpack(a)
+    local x, y = a:unpack()
+    assertFeq(x, a.x)
+    assertFeq(y, a.y)
+end
+
+
 local function run()
     local function genVec()
         local x, y = 0, 0

@@ -336,4 +336,11 @@ function Vector2:__eq(v)
 end
 
 
+---Unpacks the vector.
+---@return number, number
+function Vector2:unpack()
+    return self.x, self.y
+end
+
+
 return Vector2
